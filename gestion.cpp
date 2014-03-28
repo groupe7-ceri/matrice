@@ -10,10 +10,11 @@ Implémentation des méthodes de la classe Gestion */
 using namespace std;
 
 // Constructeur
-Gestion::Gestion()
+Gestion::Gestion(int nb)
 {
 	// ctor
-	// initialise la matrice
+	this->nbre = nb;
+	tableau[] = new Matrice[this->nbre];
 }
 // Méthodes publiques
 // Méthodes privées
