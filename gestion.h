@@ -2,14 +2,14 @@
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
 MAJ : 28 mars 2014
-Fichier matrice.h
-Déclaration des méthodes de la classe Matrice */
+Fichier gestion.h
+Déclaration des méthodes de la classe Gestion */
 
 #include <iostream>
 
-class Matrice
+class Gestion
 {
 public:
-	Matrice();
-	~Matrice();
+	Gestion();
+	~Gestion();
 };

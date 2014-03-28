@@ -1,16 +1,16 @@
-/* Génie logiciel - Projet Matrice
+/* Génie logiciel - Projet Gestion
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
 MAJ : 28 mars 2014
-Fichier matrice.cpp
-Implémentation des méthodes de la classe Matrice */
+Fichier gestion.cpp
+Implémentation des méthodes de la classe Gestion */
 
-#include "matrice.h"
+#include "gestion.h"
 
 using namespace std;
 
 // Constructeur
-Matrice::Matrice()
+Gestion::Gestion()
 {
 	// ctor
 	// initialise la matrice
@@ -21,7 +21,7 @@ Matrice::Matrice()
 // Getteurs
 
 // Destructeur
-Matrice::~Matrice()
+Gestion::~Gestion()
 {
 	// dtor
 }
