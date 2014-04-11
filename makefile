@@ -1,7 +1,9 @@
-all: matrice.o gestion.o
+all: matrice.o
 
 matrice.o: matrice.cpp matrice.h
 	g++ -c matrice.cpp
 
-gestion.o: gestion.cpp gestion.h
-	g++ -c gestion.cpp
+clean:
+	rm -f *.cpp~
+	rm -f *.h~
+	rm -f *.o
