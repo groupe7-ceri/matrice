@@ -5,6 +5,9 @@ MAJ : 11 avril 2014
 Fichier matrice.h
 Déclaration des méthodes de la classe Matrice */
 
+#ifndef __MATRICE__
+#define __MATRICE__
+
 // Librairies
 #include <iostream>
 #include <string>
@@ -12,7 +15,7 @@ Déclaration des méthodes de la classe Matrice */
 
 class Matrice
 {
-	int taille;
+	int n, m; // taille de la matrice (n colonnes et m lignes)
 	std::string *tabX;
 	std::string *tabY;
 	int *tabVal;
@@ -29,3 +32,4 @@ public:
 	// Getteurs
 	Matrice getMatrice(); // retourne la matrice courante
 };
+#endif

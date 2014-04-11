@@ -12,15 +12,18 @@ using namespace std;
 // Constructeur
 Matrice::Matrice(string nomFichier)
 {
+	cout<<"constructeur avec "<<nomFichier<<endl; // tmp
 	// Lit le fichier
 	const char * nom = nomFichier.c_str(); // conversion string => const char *
 	ifstream fichier(nom);
 	if((fichier != NULL) && (fichier)) // si le fichier existe et non vide
 	{
-		// Lit la taille de la matrice (nombre de lignes) => this->taille
+		cout<<"Fichier ouvert"<<endl;
+		// Lit la taille de la matrice (n : colonnes - m : lignes) sur la première ligne
 		// Initialisation des trois tableaux
 		// Algo lecture des lignes
 		// Initialise la matrice
+		fichier.close(); // Fermeture du fichier
 	}
 }
 // Méthodes publiques
