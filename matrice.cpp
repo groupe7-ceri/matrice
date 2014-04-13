@@ -19,7 +19,8 @@ Matrice::Matrice(string nomFichier)
 	if((fichier != NULL) && (fichier)) // si le fichier existe et non vide
 	{
 		cout<<"Fichier ouvert"<<endl;
-		// Lit la taille de la matrice (n : colonnes - m : lignes) sur la première ligne
+		// lecture de la taille de la matrice
+		//cout<<"Taille : "<<taille<<endl;
 		// Initialisation des trois tableaux
 		// Algo lecture des lignes
 		// Initialise la matrice
@@ -27,6 +28,26 @@ Matrice::Matrice(string nomFichier)
 	}
 }
 // Méthodes publiques
+Matrice Matrice::addition(Matrice &matrice)
+{
+	return NULL;
+}
+Matrice soustraction(Matrice &matrice)
+{
+	return NULL;
+}
+Matrice multiplifcation(Matrice &matrice)
+{
+	return NULL;
+}
+Matrice division(Matrice &matrice)
+{
+	return NULL;
+}
+Matrice factorisation()
+{
+	return NULL;
+}
 // Méthodes privées
 // Setteurs
 // Getteurs
