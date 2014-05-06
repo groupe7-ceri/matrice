@@ -1,17 +1,51 @@
+<<<<<<< HEAD
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
 MAJ : 6 mai 2014
 Fichier matrice.cpp
 Implémentation des méthodes de la classe Matrice */
+=======
+/**
+ * \file matrice.cpp
+ * \brief Génie logiciel - Projet Matrice - L2 INFORMATIQUE - Groupe TP2
+ * \author Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
+ * \date 28 mars 2014
+  *
+ * \date MAJ 11 Avril 2014
+ *
+ * Implémentation des méthodes de la classe Matrice
+*/
+>>>>>>> 075c882961b5cc2e68b881959bf9153509d16d43
 
 #include "matrice.h"
 
+/** \namespace std */
+
 using namespace std;
 
-// Constructeur
+/**
+ * \fn Matrice::Matrice (string nomFichier)
+ * \brief Constructeur
+ *
+ * Ce constructeur appele un fichier.txt et récupère les données qu'il contient
+ * afin de créer une matrice composer de trois tableau
+ * Le premier tableau tabX contient le numéro de la colonne de la matrice
+ * Le deuxième tableau tabY contient le numéro de la ligne de la matrice
+ * Le troisième tableau tabVal contient le valeur correspondant à la case de la matrice définie par les
+ * deux premiers tableaux
+ *
+ * \param nomFichier  Nom du fichier que le constructeur doit ouvrir
+ *
+ */
 Matrice::Matrice(string nomFichier)
 {
+<<<<<<< HEAD
+=======
+	n = 3; /** Valeurs temporaires */
+	m = 3;
+	int tailleFichier = 0; // compteur du nombre de ligne
+>>>>>>> 075c882961b5cc2e68b881959bf9153509d16d43
 	int j = 0;
 	// initialisation des variables
 	this->tailleFichier = 0;
@@ -81,9 +115,145 @@ Matrice::Matrice(string nomFichier)
 	}
 }
 // Méthodes publiques
+<<<<<<< HEAD
+void Matrice::addition(Matrice &matrice)
+=======
+
+/**
+ * \fn Matrice::addition (Matrice &matrice)
+ * \brief Addition
+ *
+ * Fonction permettant l'addition de 2 matrices
+ *
+ * \param Une matrice
+ *
+ */
+
 void Matrice::addition(Matrice &matrice)
 {
+    int i=0;
+    while (i < (tailleFichier - 1))
+    {
+        if(tabX[i] == matrice->tabX[i] && tabY[i] == matrice->tabY[i])
+        {
+            if(tabVal[i] == 0)
+            {
+                if(matrice->tabVal[i] == 0) i++;
+                else
+                {
+                    tabVal[i] = matrice->tabVal[i];
+                    i++
+                }
+            }
+            else
+            {
+                if(matrice->tabVal[i] == 0) i++;
+                else
+                {
+                    tabVal[i] = tabVal[i] + matrice->tabVal[i];
+                    i++;
+                }
+            }
+        }
+        else
+        {
+			if(tabX[i] == matrice->tabX[i])
+			{
+				if(tabY[i] < matrice->tabY[i])
+				{
+					insertion(tabX[i],tabY[i],tabVal[i],i);
+					i++;
+				}
+				else
+				{
+					insertion(tabX[i],tabY[i],tabVal[i],i+1);
+					i++;
+				}
+			}
+			else if(tabX[i] < matrice->tabX[i])
+			{
+				insertion(tabX[i],tabY[i],tabVal[i],i);
+				i++;
+			}
+			else if(tabX[i] < matrice->tabX[i])
+			{
+				insertion(tabX[i],tabY[i],tabVal[i],i+1);
+				i++;
+			}
+        }
+    }
 }
+
+/**
+ * \fn Matrice::soustraction (Matrice &matrice)
+ * \brief Soustraction
+ *
+ * Fonction permettant la soustraction de 2 matrices
+ *
+ * \param Une matrice
+ *
+ */
+
+void Matrice::soustraction(Matrice &matrice)
+>>>>>>> 075c882961b5cc2e68b881959bf9153509d16d43
+{
+    int i=0;
+    while (i < (tailleFichier - 1))
+    {
+        if(tabX[i] == matrice->tabX[i] && tabY[i] == matrice->tabY[i])
+        {
+            if(tabVal[i] == 0)
+            {
+                if(matrice->tabVal[i] == 0) i++;
+                else
+                {
+                    tabVal[i] = tabVal[i] - matrice->tabVal[i];
+                    i++
+                }
+            }
+            else
+            {
+                if(matrice->tabVal[i] == 0) i++;
+                else
+                {
+                    tabVal[i] = tabVal[i] - matrice->tabVal[i];
+                    i++;
+                }
+            }
+        }
+        else
+        {
+			if(tabX[i] == matrice->tabX[i])
+			{
+				if(tabY[i] < matrice->tabY[i])
+				{
+                    tabVal[i] = tabVal[i] - matrice->tabVal[i];
+					insertion(tabX[i],tabY[i],tabVal[i],i);
+					i++;
+				}
+				else
+				{
+                    tabVal[i] = tabVal[i] - matrice->tabVal[i];
+					insertion(tabX,tabY,tabVal,i+1);
+					i++;
+				}
+			}
+			else if(tabX[i] < matrice->tabX[i])
+			{
+                tabVal[i] = tabVal[i] - matrice->tabVal[i];
+				insertion(tabX,tabY,tabVal,i);
+				i++;
+			}
+			else if(tabX[i] < matrice->tabX[i])
+			{
+                tabVal[i] = tabVal[i] - matrice->tabVal[i];
+				insertion(tabX,tabY,tabVal,i+1);
+				i++;
+			}
+        }
+    }
+}
+<<<<<<< HEAD
 void Matrice::soustraction(Matrice &matrice)
 {
 }
@@ -94,7 +264,34 @@ void Matrice::division(Matrice &matrice)
 {
 }
 void Matrice::factorisation()
+=======
+
+void Matrice::multiplication(Matrice &matrice)
 {
+}
+
+void Matrice::division(Matrice &matrice)
+{
+}
+
+void Matrice::factorisation()
+{
+}
+
+/**
+ * \fn Matrice::Insretion (string *tab1,string *tab2,int *tab3,int i)
+ * \brief Insretion
+ *
+ * Fonction permettant la soustraction de 2 matrices
+ *
+ * \param 2 chaîne de caractère et duex entiers
+ *
+ */
+Matrice Insertion(string s1,string s2,int s3,int i)
+>>>>>>> 075c882961b5cc2e68b881959bf9153509d16d43
+{
+
+
 }
 void Matrice::afficher()
 {
@@ -126,7 +323,7 @@ int Matrice::charToInt(char * caractere)
 // Setteurs
 void Matrice::setTabX(string &tabX, int taille)
 {
-	
+
 }
 void Matrice::setTabY(string &tabY, int taille)
 {
