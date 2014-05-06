@@ -18,6 +18,7 @@ int main(void)
 	cout<<"Programme de test de la librairie"<<endl;
 	cout<<"Pour info, le nom du fichier est : matrix.txt"<<endl;
 	Matrice m1("matrix.txt");
+	m1.afficher();
 	return 0;
 }
 #endif

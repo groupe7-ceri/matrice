@@ -1,7 +1,7 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
-MAJ : 16 avril 2014
+MAJ : 6 mai 2014
 Fichier matrice.cpp
 Implémentation des méthodes de la classe Matrice */
 
@@ -12,10 +12,9 @@ using namespace std;
 // Constructeur
 Matrice::Matrice(string nomFichier)
 {
-	n = 3; // valeurs temporaires
-	m = 3;
-	int tailleFichier = 0; // compteur du nombre de ligne
 	int j = 0;
+	// initialisation des variables
+	this->tailleFichier = 0;
 	// Lit le fichier
 	const char * nom = nomFichier.c_str(); // conversion string => const char *
 	ifstream fichier(nom);
@@ -23,11 +22,31 @@ Matrice::Matrice(string nomFichier)
 	{
 		// lecture de la taille de la matrice (première ligne)
 		string taille;
-		fichier >> taille;
+		fichier >> taille; // extraction de la première ligne
+		// traitement de la première ligne (n et m)
+		//cout<<"n : "<<taille[5]<<" - m : "<<taille[7]<<endl; // tmp
+		cout<<"taille : "<<taille.size()<<endl;
+		if(taille.size() > 8)
+		{
+			cout<<"n ou m est à 2 chiffres"<<endl;
+			// algo a faire
+		}
+		else // la valeur de n et de m contient un seul chiffre
+		{
+			this->n = this->charToInt(taille[5]);
+			this->m = this->charToInt(taille[7]);
+		}
+		cout<<"n : "<<this->n<<" - m : "<<this->m<<endl; // tmp
+		this->max = this->n * this->m; // calcul du nombre de valeurs maximal
 		// comptage du nombre de ligne
 		string ligne;
 		while(getline(fichier, ligne))
-			tailleFichier++;
+			this->tailleFichier++;
+		if(this->tailleFichier ==	 0) 
+		{
+			cout<<"Erreur de lecture du fichier, arret du programme"<<endl;
+			exit(4); // arret du programme
+		}
 		// Initialisation des trois tableaux
 		// tailleFichier - 1 car on commence à la 2eme ligne
 		tabX = new string[tailleFichier - 1];
@@ -39,58 +58,71 @@ Matrice::Matrice(string nomFichier)
 			this->tabY[i] = "y";
 			this->tabVal[i] = 0;
 		}
-		// initialisation du tableau OK
-		// Algo lecture des lignes
+		// Algo lecture des lignes et stockage dans les trois tableaux
 		fichier.clear();
 		fichier.seekg(0, ios::beg); // retour au début du fichier
-		for(int i = 0; i < tailleFichier; i++)
+		int i = 0;
+		while(getline(fichier, ligne))
 		{
-			getline(fichier, ligne);
-			if(ligne.find("size=", 0) != 0) // la première ligne est ignorée (car elle contient "size=" à la première occurence
+			if(ligne.find("size=", 0) != 0) // la 1e ligne (contenant size=) n'est pas lu
 			{
-				cout<<ligne[0]<<"_"<<ligne[2]<<"_"<<ligne[4]; // tmp
-				//string l = ligne[0];
-				//string c = ligne[2];
-				//this->tabVal[i] = atoi(ligne[4]);
+				//cout<<"ligne "<<i<<" : "<<ligne<<endl;
+				char l = ligne[0];
+				this->tabX[i] = l;
+				char c = ligne[2];
+				this->tabY[i] = c;
+				this->tabVal[i] = this->charToInt(ligne[4]);
+				cout<<i<<" : "<<this->tabX[i]<<"_"<<this->tabY[i]<<"_"<<this->tabVal[i]<<endl; // tmp, pour débug
+				i++;
 			}
-			cout<<endl;
+			
 		}
-		// Initialise la matrice
-		this->tabX[0] = "0";
-		this->tabX[1] = "0";
-		this->tabX[2] = "1";
-		this->tabX[3] = "2";
-		this->tabX[4] = "2";
-		this->tabY[0] = "1";
-		this->tabY[1] = "2";
-		this->tabY[2] = "0";
-		this->tabY[3] = "1";
-		this->tabY[4] = "2";
-		this->tabVal[0] = 1;
-		this->tabVal[1] = 2;
-		this->tabVal[2] = 3;
-		this->tabVal[3] = 5;
-		this->tabVal[4] = 7;
 		fichier.close(); // Fermeture du fichier
 	}
 }
 // Méthodes publiques
-Matrice Matrice::addition(Matrice &matrice)
+void Matrice::addition(Matrice &matrice)
 {
 }
-Matrice soustraction(Matrice &matrice)
+void Matrice::soustraction(Matrice &matrice)
 {
 }
-Matrice multiplifcation(Matrice &matrice)
+void Matrice::multiplication(Matrice &matrice)
 {
 }
-Matrice division(Matrice &matrice)
+void Matrice::division(Matrice &matrice)
 {
 }
-Matrice factorisation()
+void Matrice::factorisation()
 {
+}
+void Matrice::afficher()
+{
+	cout<<"Voici la matrice :"<<endl;
+	string x, y;
+	int val;
+	for(int i = 0; i < (this->tailleFichier - 1); i++)
+	{
+		x = tabX[i]; // récupération de la valeur X
+		y = tabY[i]; // récupération de la valeur Y
+		val = tabVal[i]; // récupération de la valeur
+		cout<<"i : "<<i<<" - ["<<x<<"]["<<y<<"] val : "<<val<<endl;
+	}
+	
 }
 // Méthodes privées
+int Matrice::charToInt(char caractere)
+{
+	int valeur;
+	valeur = caractere - '0';
+	return valeur;
+}
+int Matrice::charToInt(char * caractere)
+{
+	int valeur;
+	valeur = atoi(caractere);
+	return valeur;
+}
 // Setteurs
 void Matrice::setTabX(string &tabX, int taille)
 {
@@ -105,6 +137,7 @@ void Matrice::setTabVal(int &tabVal, int taille)
 // Getteurs
 Matrice Matrice::getMatrice()
 {
+	
 }
 // Destructeur
 Matrice::~Matrice()
