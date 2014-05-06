@@ -1,9 +1,13 @@
-/* Génie logiciel - Projet Matrice
-L2 INFORMATIQUE - Groupe TP2
-Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
-MAJ : 11 avril 2014
-Fichier matrice.h
-Déclaration des méthodes de la classe Matrice */
+/**
+ * \file matrice.h
+ * \brief Génie logiciel - Projet Matrice - L2 INFORMATIQUE - Groupe TP2
+ * \author Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
+ * \date 28 mars 2014
+ *
+ * \date MAJ 11 Avril 2014
+ *
+ * Déclaration des méthodes de la classe Matrice
+*/
 
 #ifndef __MATRICE__
 #define __MATRICE__
@@ -13,6 +17,13 @@ Déclaration des méthodes de la classe Matrice */
 #include <string>
 #include <fstream>
 
+/**
+ * \class Matrice
+ * \brief Classe représentant la matrice
+ *
+ * La classe gère les différentes opérations possibles sur la matrice
+*/
+
 class Matrice
 {
 	int n, m; // taille de la matrice (n colonnes et m lignes)
@@ -21,15 +32,16 @@ class Matrice
 	int *tabVal;
 private:
 public:
-	Matrice(std::string);
-	~Matrice();
-	Matrice addition(Matrice &);
-	Matrice soustraction(Matrice &);
-	Matrice multiplifcation(Matrice &);
-	Matrice division(Matrice &);
-	Matrice factorisation();
+
+	Matrice(std::string);/** * \brief Constructeur * Constructeur de la class Matrice *\param Un nom de fichier texte */
+	~Matrice(); /** * \brief Destructeur * Destructeur de la classe Matrice */
+	void addition(Matrice &); /** * \brief Addition * Fonction additionnant 2 matrices * \param Matrice */
+	void soustraction(Matrice &); /** * \brief Soustraction * Fonction soustrayant  2 matrices * \param Matrice */
+	void multiplifcation(Matrice &); /** * \brief AMultiplicationn * Fonction Fonction mutliyant 2 matrices * \param Matrice */
+	void division(Matrice &); /** * \brief Division * Fonction divisant 2 matrices * \param Matrice */
+	void factorisation(); /** * \brief Factorisation * Fonction factorisant une matrices */
 	// Setteurs
 	// Getteurs
-	Matrice getMatrice(); // retourne la matrice courante
+	Matrice getMatrice(); /** * \brief getMatrice * Fonction retournant la matrice courante * \param Matrice */
 };
 #endif
