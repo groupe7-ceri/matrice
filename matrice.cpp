@@ -112,15 +112,14 @@ Matrice::Matrice(Matrice &matrice) // constructeur de recopie
 		this->tabY[i] = "y";
 		this->tabVal[i] = 0;
 	}
-	// recopie tabX
+	// recopie tableaux
 	for(int i = 0; i < this->tailleFichier; i++)
 	{
 		this->tabX[i] = matrice.tabX[i];
 		this->tabY[i] = matrice.tabY[i];
 		this->tabVal[i] = matrice.tabVal[i];
 	}
-	// recopie tabY
-	// recopie tabVal
+	this->afficher();
 }
 // Méthodes publiques
 void Matrice::addition(Matrice &matrice)
@@ -140,17 +139,27 @@ void Matrice::factorisation()
 }
 void Matrice::afficher()
 {
-	string x, y;
 	int val;
-	cout<<"Voici la matrice :"<<endl;
-	for(int i = 0; i < (this->tailleFichier - 1); i++)
-	{
-		x = tabX[i]; // récupération de la valeur X
-		y = tabY[i]; // récupération de la valeur Y
-		val = tabVal[i]; // récupération de la valeur
-		cout<<"i : "<<i<<" - ["<<x<<"]["<<y<<"] val : "<<val<<endl; // affichage temporaire
-	}
+	cout<<"Voici la matrice"<<endl;
 	// affichage sous forme d'une matrice
+	cout<<"   ";
+	for(int j = 0; j < this->n; j++) // affichage du numéro des colonnes (même index j pour s'en rapeler)
+		cout<<j<<" ";
+	cout<<endl;
+	
+	for(int i = 0; i < this->m; i++)
+	{
+		cout<<i<<" |";
+		for(int j = 0; j < this->n; j++)
+		{
+			val = this->getValeur(i, j); // récupération de la case actuelle
+			if(val != -1) // si ce n'est pas une case vide
+				cout<<val<<" "; // alors on affiche la valeur
+			else
+				cout<<"  ";
+		}
+		cout<<endl;
+	}
 }
 // Méthodes privées
 int Matrice::charToInt(char caractere)
@@ -201,6 +210,26 @@ int Matrice::getMax()
 int Matrice::getTaille()
 {
 	return this->tailleFichier;
+}
+int Matrice::getValeur(int x, int y)
+{
+	int val = -1;
+	int i = 0;
+	string X, Y;
+	// conversion int -> string
+	ostringstream oss;
+	oss << x;
+	X = oss.str();
+	oss.str(""); // effacement du flux pour traiter y
+	oss << y;
+	Y = oss.str();
+	while(i <= (this->tailleFichier - 2))
+	{
+		if((this->tabX[i] == X) && (this->tabY[i] == Y)) // si les deux cases correspondent
+			val = this->tabVal[i]; // récupération de la valeur
+		i++;
+	}
+	return val;
 }
 // Destructeur
 Matrice::~Matrice()

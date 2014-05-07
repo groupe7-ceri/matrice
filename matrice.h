@@ -14,6 +14,7 @@ Déclaration des méthodes de la classe Matrice */
 #include <cstring>
 #include <fstream>
 #include <stdlib.h> // fonction atoi()
+#include <sstream> // conversion int -> string
 
 class Matrice
 {
@@ -45,5 +46,6 @@ public:
 	Matrice getMatrice(); // retourne la matrice courante
 	int getMax(); // retourne le nbre de valeurs maximales
 	int getTaille(); // retourne la taille de la grille (nbre de lignes)
+	int getValeur(int, int); // retourne la valeur des coordonnées en paramètres
 };
 #endif
