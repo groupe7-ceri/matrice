@@ -1,7 +1,7 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
-MAJ : 6 mai 2014
+MAJ : 7 mai 2014
 Fichier matrice.h
 Déclaration des méthodes de la classe Matrice */
 
@@ -27,6 +27,7 @@ class Matrice
 private:
 	int charToInt(char); // conversion char vers int
 	int charToInt(char *); // conversion char * vers int (surcharge)
+	int stringToInt(std::string); // conversion string vers int
 	bool creuse(); // détermine si c'est une matrice creuse (true) ou non (false)
 public:
 	Matrice(std::string);
@@ -36,6 +37,7 @@ public:
 	void soustraction(Matrice &);
 	void multiplication(Matrice &);
 	void division(Matrice &);
+	void division(int); // divise la matrice par une constante (surcharge)
 	void factorisation();
 	void afficher();
 	// Setteurs
@@ -46,6 +48,6 @@ public:
 	Matrice getMatrice(); // retourne la matrice courante
 	int getMax(); // retourne le nbre de valeurs maximales
 	int getTaille(); // retourne la taille de la grille (nbre de lignes)
-	int getValeur(int, int); // retourne la valeur des coordonnées en paramètres
+	int getValeur(int, int); // retourne la valeur des coordonnées en paramètres (le passer en privé ?)
 };
 #endif

@@ -1,7 +1,7 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
-MAJ : 6 mai 2014
+MAJ : 7 mai 2014
 Fichier matrice.cpp
 Implémentation des méthodes de la classe Matrice */
 
@@ -20,6 +20,7 @@ Matrice::Matrice(string nomFichier)
 	this->n = -1;
 	this->m = -1;
 	this->max = -1;
+	cout<<"Matrice initialisée avec le fichier "<<nomFichier<<endl;
 	// Lit le fichier
 	const char * nom = nomFichier.c_str(); // conversion string => const char *
 	ifstream fichier(nom); // ouverture du fichier
@@ -112,7 +113,7 @@ Matrice::Matrice(Matrice &matrice) // constructeur de recopie
 		this->tabY[i] = "y";
 		this->tabVal[i] = 0;
 	}
-	// recopie tableaux
+	// recopie des tableaux
 	for(int i = 0; i < this->tailleFichier; i++)
 	{
 		this->tabX[i] = matrice.tabX[i];
@@ -122,20 +123,59 @@ Matrice::Matrice(Matrice &matrice) // constructeur de recopie
 	this->afficher();
 }
 // Méthodes publiques
-void Matrice::addition(Matrice &matrice)
+void Matrice::addition(Matrice &matrice) // faite par Alex et Dylan
 {
+	if((this->n == matrice.n) && (this->m == matrice.m)) // les 2 matrices sont de même taille
+	{
+		// addition des deux matrices
+		cout<<"addition ok"<<endl;
+	}
+	else
+		cout<<"La matrice ne peux pas etre additionnée car différence de taille"<<endl;
 }
-void Matrice::soustraction(Matrice &matrice)
+void Matrice::soustraction(Matrice &matrice) // faite par Alex et Dylan
 {
+	if((this->n == matrice.n) && (this->m == matrice.m)) // les 2 matrices sont de même taille
+	{
+		// soustraction des deux matrices
+		cout<<"soustraction ok"<<endl;
+	}
+	else
+		cout<<"La matrice ne peux pas etre soustraite car différence de taille"<<endl;
 }
-void Matrice::multiplication(Matrice &matrice)
+void Matrice::multiplication(Matrice &matrice) // faite par Alex et Dylan
 {
+	if((this->n == matrice.n) && (this->m == matrice.m)) // les 2 matrices sont de même taille
+	{
+		// multiplication des deux matrices
+		cout<<"multiplication ok"<<endl;
+	}
+	else
+		cout<<"La matrice ne peux pas etre multipliée car différence de taille"<<endl;
 }
 void Matrice::division(Matrice &matrice)
 {
+	if((this->n == matrice.n) && (this->m == matrice.m)) // les 2 matrices sont de même taille
+	{
+		// division des deux matrices
+		cout<<"division ok"<<endl;
+	}
+	else
+		cout<<"La matrice ne peux pas etre divisée car différence de taille"<<endl;
+}
+void Matrice::division(int constante)
+{
+	cout<<"Division de la matrice par une constante de valeur "<<constante<<endl;
 }
 void Matrice::factorisation()
 {
+	if(this->n == this->m) // matrice carré
+	{
+		cout<<"factorisation autorisé"<<endl;
+		this->afficher();
+	}
+	else
+		cout<<"Cas non traité pour le moment"<<endl;
 }
 void Matrice::afficher()
 {
@@ -146,7 +186,6 @@ void Matrice::afficher()
 	for(int j = 0; j < this->n; j++) // affichage du numéro des colonnes (même index j pour s'en rapeler)
 		cout<<j<<" ";
 	cout<<endl;
-	
 	for(int i = 0; i < this->m; i++)
 	{
 		cout<<i<<" |";
@@ -162,26 +201,43 @@ void Matrice::afficher()
 	}
 }
 // Méthodes privées
-int Matrice::charToInt(char caractere)
+int Matrice::charToInt(char caractere) // conversion char -> int
 {
 	int valeur;
 	valeur = caractere - '0';
 	return valeur;
 }
-int Matrice::charToInt(char * caractere)
+int Matrice::charToInt(char * caractere) // conversion char * -> int (surcharge de la méthode)
 {
 	int valeur;
 	valeur = atoi(caractere);
 	return valeur;
 }
+int Matrice::stringToInt(string caractere) // conversion string -> int
+{
+	int valeur;
+	valeur = atoi(caractere.c_str());
+	return valeur;
+}
 bool Matrice::creuse() // détermine si la matrice est creuse ou non
 {
 	bool creuse = false;
-	int nbre = this->tailleFichier; // nombre de cases occupés
-	float pc = 50 / 100;
-	cout<<"max : "<<this->max<<" / nb : "<<nbre<<" = ";
-	printf("pc : %.2f \n", pc); // instruction C pour affichage
-	// calcul du nombre de case occupé par colonne (il faut au moins 1 case / colonne)
+	float nbre = this->tailleFichier; // nombre de cases occupés, stocké dans un float pour division
+	float maxi = this->max; // nombre total de case, stocké dans un float pour division
+	float pc = nbre / maxi;
+	pc *= 100;
+	pc = 4; // tmp, pour essai de l'algo de comptage de case par colonne
+	if(pc < 5)
+	{
+		// calcul du nombre de case occupé par colonne (il faut au moins 1 case / colonne)
+		for(int i = 0; i < this->n; i++)
+		{
+			if(this->tabY[i] == "y")
+			{
+				creuse = true;
+			}
+		}
+	}
 	return creuse;
 }
 // Setteurs
