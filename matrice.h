@@ -20,7 +20,7 @@ class Matrice
 {
 	int n, m; // taille de la matrice (n colonnes et m lignes)
 	int tailleFichier; // nombre de lignes
-	int max; // nombre de valeur maximale
+	int max; // nombre de valeurs maximale
 	std::string *tabX;
 	std::string *tabY;
 	int *tabVal;
@@ -54,5 +54,7 @@ public:
 	std::string getX(int); // retourne la valeur X du tableau tabX
 	std::string getY(int); // retourne la valeur Y du tableau tabY
 	int getVal(int); // retourne la valeur Val du tableau tabVal
+	int getTaille(bool); // retourne la taille de la matrice (attribut tailleFichier) (false) ou réel (true)
+	int getMax(); // retourne le nombre maximal de cases (attribut max)
 };
 #endif

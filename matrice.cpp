@@ -26,7 +26,6 @@ Matrice::Matrice(int n, int m) // constructeur matrice vide
 		this->tabY[i] = "y";
 		this->tabVal[i] = 0;
 	}
-	cout<<"Matrice "<<this->n<<" x "<<this->m<<" créé avec "<<this->tailleFichier<<" cases"<<endl;
 }
 Matrice::Matrice(string nomFichier) // construit une matrice à partir d'un fichier
 {
@@ -208,37 +207,27 @@ void Matrice::transposee()
 {
 	if(this->estCarre()) // matrice carré
 	{
-		cout<<"effectue la transposée de la matrice"<<endl;
-		Matrice t(this->n, this->m); // création d'une matrice vide temporaire
+		Matrice t(this->n, this->m); // création d'une matrice vide temporaire de taille n x m
 		for(int i = 0; i < this->m; i++)
 		{
 			for(int j = 0; j < this->n; j++)
 			{
 				int val = this->getValeur(i, j); // récupère la valeur de la case [i][j]
-				t.setValeur(j, i, val);
+				t.setValeur(j, i, val); // stocke la valeur de la case [j][i] dans la matrice temporaire
 			}
-			cout<<endl;
 		}
-		t.afficher();
-		// nettoyage
-		// recopie dans la matrice d'origine
-		cout<<"ancienne matrice : "<<endl;
-		for(int i = 0; i < (this->tailleFichier - 1); i++)
+		/*for(int i = 0; i < (t.getMax() - 1); i++) // décommenter pour débug
 		{
-			string x = this->tabX[i];
-			string y = this->tabY[i];
-			int valeur = this->tabVal[i];
-			cout<<x<<"_"<<y<<"_"<<valeur<<endl;
-		}
-		cout<<"nouvelle matrice : "<<endl;
-		t.afficher();
-		/*for(int i = 0; i < 8; i++)
-		{
-			string x = t.getX(i);
-			string y = t.getY(i);
-			int valeur = t.getVal(i);
-			cout<<x<<"_"<<y<<"_"<<valeur<<endl;
+			cout<<t.getX(i)<<"_"<<t.getY(i)<<"_"<<t.getVal(i)<<endl;
 		}//*/
+		// recopie dans la matrice d'origine
+		for(int i = 0; i < t.getTaille(true); i++) // getTaille(true) renvoi le nombre réel de cases occupées
+		{
+			this->tabX[i] = t.getX(i);
+			this->tabY[i] = t.getY(i);
+			this->tabVal[i] = t.getVal(i);
+		}
+		this->afficher();
 	}
 	else
 		cout<<"Cas non traité pour le moment"<<endl;
@@ -330,7 +319,7 @@ void Matrice::nettoyage(Matrice &matrice)
 	// triage des nombres en ligne et colonnes
 }
 // Setteurs
-void Matrice::setValeur(int x, int y, int valeur)
+void Matrice::setValeur(int x, int y, int valeur) // terminé
 {
 	int i = 0;
 	int valeurCase = this->getValeur(x, y); // valeur de la case
@@ -348,7 +337,7 @@ void Matrice::setValeur(int x, int y, int valeur)
 		if(valeurCase == -1) // la case n'existe pas
 		{
 			// crée la case
-			cout<<"insertion : "<<X<<"_"<<Y<<"_"<<valeur<<endl;
+			//cout<<"insertion : "<<X<<"_"<<Y<<"_"<<valeur<<endl; // tmp
 			while(i <= (this->tailleFichier - 1))
 			{
 				//cout<<"["<<this->tabX[i]<<"]["<<this->tabY[i]<<"] = "<<this->tabVal[i]<<endl;
@@ -409,6 +398,28 @@ int Matrice::getVal(int i)
 {
 	int val = this->tabVal[i];
 	return val;
+}
+int Matrice::getTaille(bool reel = false)
+{
+	if(!reel) // par défaut, retourne la taille du fichier
+		return this->tailleFichier;
+	else // compte réellement le nbre de cases
+	{
+		int nbre = 0;
+		for(int i = 0; i < this->max; i++)
+		{
+			if((this->tabX[i] == "x") && (this->tabY[i] == "y") && (this->tabVal[i] == 0)) // ligne vide
+			{
+				nbre = i; // sauvegarde du compteur
+				break; // sortie de la boucle
+			}
+		}
+		return nbre; // nombre réel de cases occupées
+	}
+}
+int Matrice::getMax()
+{
+	return this->max;
 }
 // Destructeur
 Matrice::~Matrice()
