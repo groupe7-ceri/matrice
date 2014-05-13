@@ -1,7 +1,7 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
-MAJ : 7 mai 2014
+MAJ : 13 mai 2014
 Fichier matrice.cpp
 Implémentation des méthodes de la classe Matrice */
 
@@ -9,8 +9,8 @@ Implémentation des méthodes de la classe Matrice */
 
 using namespace std;
 
-// Constructeur
-Matrice::Matrice(int n, int m)
+// Constructeurs
+Matrice::Matrice(int n, int m) // constructeur matrice vide
 {
 	this->n = n;
 	this->m = m;
@@ -28,7 +28,7 @@ Matrice::Matrice(int n, int m)
 	}
 	cout<<"Matrice "<<this->n<<" x "<<this->m<<" créé avec "<<this->tailleFichier<<" cases"<<endl;
 }
-Matrice::Matrice(string nomFichier)
+Matrice::Matrice(string nomFichier) // construit une matrice à partir d'un fichier
 {
 	int j = 0;
 	int separateur = 6; // position du séparateur (par défaut, il est sur le caractère 6)
@@ -231,18 +231,19 @@ void Matrice::transposee()
 			cout<<x<<"_"<<y<<"_"<<valeur<<endl;
 		}
 		cout<<"nouvelle matrice : "<<endl;
-		for(int i = 0; i < 8; i++)
+		t.afficher();
+		/*for(int i = 0; i < 8; i++)
 		{
 			string x = t.getX(i);
 			string y = t.getY(i);
 			int valeur = t.getVal(i);
 			cout<<x<<"_"<<y<<"_"<<valeur<<endl;
-		}
+		}//*/
 	}
 	else
 		cout<<"Cas non traité pour le moment"<<endl;
 }
-void Matrice::afficher()
+void Matrice::afficher() // terminé
 {
 	int val;
 	cout<<"Voici la matrice"<<endl;
@@ -343,25 +344,12 @@ void Matrice::setValeur(int x, int y, int valeur)
 	if((valeur != -1) && (valeur != 0)) // la valeur peut être stockée
 	{
 		int valeurCase = this->getValeur(x, y); // lis la valeur de la case
+		//cout<<"insertion : "<<X<<"_"<<Y<<"_"<<valeur<<endl;
 		if(valeurCase == -1) // la case n'existe pas
 		{
 			// crée la case
-		}
-		else // la case existe
-		{
-			// remplace la valeur
-		}
-	}
-	else
-		cout<<"valeur "<<valeur<<" non stocké"<<endl;
-	// old
-	if((valeur != -1) || (valeur != 0)) // ces deux valeurs ne sont pas stockées
-	{	
-		//cout<<"valeur case : "<<valeurCase<<endl;
-		cout<<"["<<X<<"]["<<Y<<"] : "<<valeur<<" ";
-		if(valeurCase == -1) // la case n'existe pas
-		{
-			while(i <= (this->tailleFichier - 2))
+			cout<<"insertion : "<<X<<"_"<<Y<<"_"<<valeur<<endl;
+			while(i <= (this->tailleFichier - 1))
 			{
 				//cout<<"["<<this->tabX[i]<<"]["<<this->tabY[i]<<"] = "<<this->tabVal[i]<<endl;
 				if((this->tabX[i] == "x") && (this->tabY[i] == "y")) // ligne i vide, les suivantes sont vide
@@ -374,10 +362,11 @@ void Matrice::setValeur(int x, int y, int valeur)
 				i++;
 			}
 		}
-		else
+		else // la case existe
 		{
+			// remplace la valeur
 			int index = -1;
-			while(i <= (this->tailleFichier - 2))
+			while(i <= (this->tailleFichier - 2)) // recherche de l'index correspondant à X et Y
 			{
 				if((this->tabX[i] == X) && (this->tabY[i] == Y)) // si les deux cases correspondent
 				{
@@ -385,6 +374,7 @@ void Matrice::setValeur(int x, int y, int valeur)
 				}
 				i++;
 			}
+
 		}
 	}
 }

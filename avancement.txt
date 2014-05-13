@@ -1,0 +1,18 @@
+Fichier résumant l'avancement du projet
+
+Méthodes :
+
+addition			En cours
+soustraction			En cours
+multiplication(matrice)		En cours
+multiplication(constante)	Terminé
+division(matrice)		A faire
+division(constante)		A faire
+factorisation			A faire
+transposee			En cours
+affichage			Fait
+determinant			A faire
+
+Notes :
+Revoir algo méthode creuse(), partie vérification colonnes
+Méthode setValeur(x, y, valeur) vérifié
