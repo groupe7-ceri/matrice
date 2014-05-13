@@ -28,26 +28,31 @@ private:
 	int charToInt(char); // conversion char vers int
 	int charToInt(char *); // conversion char * vers int (surcharge)
 	int stringToInt(std::string); // conversion string vers int
+	std::string intToString(int); // conversion int vers string
 	bool creuse(); // détermine si c'est une matrice creuse (true) ou non (false)
+	bool estCarre(); // indique si la matrice est carré (true) ou non (false)
+	void nettoyage(Matrice &); // nettoie la matrice passé en référence (ou alors elle même ?)
 public:
+	Matrice(int, int); // construit une matrice neutre de n x m
 	Matrice(std::string);
 	Matrice(Matrice &); // constructeur de recopie
 	~Matrice();
 	void addition(Matrice &);
 	void soustraction(Matrice &);
 	void multiplication(Matrice &);
+	void multiplication(int); // multiplie la matrice par une constante (surcharge)
 	void division(Matrice &);
 	void division(int); // divise la matrice par une constante (surcharge)
 	void factorisation();
+	void transposee(); // effectue la transposée de la matrice
 	void afficher();
+	int determinant(); // calcul le déterminant de la matrice
 	// Setteurs
-	void setTabX(std::string &, int);
-	void setTabY(std::string &, int);
-	void setTabVal(int &, int);
+	void setValeur(int, int, int);
 	// Getteurs
-	Matrice getMatrice(); // retourne la matrice courante
-	int getMax(); // retourne le nbre de valeurs maximales
-	int getTaille(); // retourne la taille de la grille (nbre de lignes)
 	int getValeur(int, int); // retourne la valeur des coordonnées en paramètres (le passer en privé ?)
+	std::string getX(int); // retourne la valeur X du tableau tabX
+	std::string getY(int); // retourne la valeur Y du tableau tabY
+	int getVal(int); // retourne la valeur Val du tableau tabVal
 };
 #endif

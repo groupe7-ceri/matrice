@@ -10,6 +10,24 @@ Implémentation des méthodes de la classe Matrice */
 using namespace std;
 
 // Constructeur
+Matrice::Matrice(int n, int m)
+{
+	this->n = n;
+	this->m = m;
+	this->max = this->n * this->m;
+	this->tailleFichier = this->max; // peut contenir toutes les valeurs
+	// Initialisation des trois tableaux
+	tabX = new string[this->tailleFichier - 1]; // tailleFichier - 1 car on commence à la 2eme ligne
+	tabY = new string[this->tailleFichier - 1];
+	tabVal = new int[this->tailleFichier - 1];
+	for(int i = 0; i < (this->tailleFichier - 1); i++)
+	{
+		this->tabX[i] = "x";
+		this->tabY[i] = "y";
+		this->tabVal[i] = 0;
+	}
+	cout<<"Matrice "<<this->n<<" x "<<this->m<<" créé avec "<<this->tailleFichier<<" cases"<<endl;
+}
 Matrice::Matrice(string nomFichier)
 {
 	int j = 0;
@@ -120,6 +138,7 @@ Matrice::Matrice(Matrice &matrice) // constructeur de recopie
 		this->tabY[i] = matrice.tabY[i];
 		this->tabVal[i] = matrice.tabVal[i];
 	}
+	cout<<"Matrice copiée :"<<endl;
 	this->afficher();
 }
 // Méthodes publiques
@@ -153,6 +172,14 @@ void Matrice::multiplication(Matrice &matrice) // faite par Alex et Dylan
 	else
 		cout<<"La matrice ne peux pas etre multipliée car différence de taille"<<endl;
 }
+void Matrice::multiplication(int constante) // fini
+{
+	cout<<"multiplication de la matrice par la constante "<<constante<<endl;
+	for(int i = 0; i < (this->tailleFichier - 1); i++)
+	{
+		this->tabVal[i] *= constante;
+	}
+}
 void Matrice::division(Matrice &matrice)
 {
 	if((this->n == matrice.n) && (this->m == matrice.m)) // les 2 matrices sont de même taille
@@ -173,6 +200,44 @@ void Matrice::factorisation()
 	{
 		cout<<"factorisation autorisé"<<endl;
 		this->afficher();
+	}
+	else
+		cout<<"Cas non traité pour le moment"<<endl;
+}
+void Matrice::transposee()
+{
+	if(this->estCarre()) // matrice carré
+	{
+		cout<<"effectue la transposée de la matrice"<<endl;
+		Matrice t(this->n, this->m); // création d'une matrice vide temporaire
+		for(int i = 0; i < this->m; i++)
+		{
+			for(int j = 0; j < this->n; j++)
+			{
+				int val = this->getValeur(i, j); // récupère la valeur de la case [i][j]
+				t.setValeur(j, i, val);
+			}
+			cout<<endl;
+		}
+		t.afficher();
+		// nettoyage
+		// recopie dans la matrice d'origine
+		cout<<"ancienne matrice : "<<endl;
+		for(int i = 0; i < (this->tailleFichier - 1); i++)
+		{
+			string x = this->tabX[i];
+			string y = this->tabY[i];
+			int valeur = this->tabVal[i];
+			cout<<x<<"_"<<y<<"_"<<valeur<<endl;
+		}
+		cout<<"nouvelle matrice : "<<endl;
+		for(int i = 0; i < 8; i++)
+		{
+			string x = t.getX(i);
+			string y = t.getY(i);
+			int valeur = t.getVal(i);
+			cout<<x<<"_"<<y<<"_"<<valeur<<endl;
+		}
 	}
 	else
 		cout<<"Cas non traité pour le moment"<<endl;
@@ -200,6 +265,10 @@ void Matrice::afficher()
 		cout<<endl;
 	}
 }
+int Matrice::determinant()
+{
+	return 0;
+}
 // Méthodes privées
 int Matrice::charToInt(char caractere) // conversion char -> int
 {
@@ -219,6 +288,14 @@ int Matrice::stringToInt(string caractere) // conversion string -> int
 	valeur = atoi(caractere.c_str());
 	return valeur;
 }
+string Matrice::intToString(int valeur)
+{
+	string caractere;
+	ostringstream oss;
+	oss << valeur;
+	caractere = oss.str();
+	return caractere;
+}
 bool Matrice::creuse() // détermine si la matrice est creuse ou non
 {
 	bool creuse = false;
@@ -226,7 +303,6 @@ bool Matrice::creuse() // détermine si la matrice est creuse ou non
 	float maxi = this->max; // nombre total de case, stocké dans un float pour division
 	float pc = nbre / maxi;
 	pc *= 100;
-	pc = 4; // tmp, pour essai de l'algo de comptage de case par colonne
 	if(pc < 5)
 	{
 		// calcul du nombre de case occupé par colonne (il faut au moins 1 case / colonne)
@@ -240,51 +316,108 @@ bool Matrice::creuse() // détermine si la matrice est creuse ou non
 	}
 	return creuse;
 }
+bool Matrice::estCarre()
+{
+	if(this->n == this->m)
+		return true;
+	else
+		return false;
+}
+void Matrice::nettoyage(Matrice &matrice)
+{
+	// retrait des 0 et des -1
+	// triage des nombres en ligne et colonnes
+}
 // Setteurs
-void Matrice::setTabX(string &tabX, int taille)
+void Matrice::setValeur(int x, int y, int valeur)
 {
-	
-}
-void Matrice::setTabY(string &tabY, int taille)
-{
-}
-void Matrice::setTabVal(int &tabVal, int taille)
-{
+	int i = 0;
+	int valeurCase = this->getValeur(x, y); // valeur de la case
+	// protection "anti" dépassement de la grille
+	if(x > this->n)
+		x = (this->n - 1);
+	if(y > this->m)
+		y = (this->m - 1);
+	string X = this->intToString(x); // conversion de la valeur x
+	string Y = this->intToString(y); // conversion de la valeur y
+	if((valeur != -1) && (valeur != 0)) // la valeur peut être stockée
+	{
+		int valeurCase = this->getValeur(x, y); // lis la valeur de la case
+		if(valeurCase == -1) // la case n'existe pas
+		{
+			// crée la case
+		}
+		else // la case existe
+		{
+			// remplace la valeur
+		}
+	}
+	else
+		cout<<"valeur "<<valeur<<" non stocké"<<endl;
+	// old
+	if((valeur != -1) || (valeur != 0)) // ces deux valeurs ne sont pas stockées
+	{	
+		//cout<<"valeur case : "<<valeurCase<<endl;
+		cout<<"["<<X<<"]["<<Y<<"] : "<<valeur<<" ";
+		if(valeurCase == -1) // la case n'existe pas
+		{
+			while(i <= (this->tailleFichier - 2))
+			{
+				//cout<<"["<<this->tabX[i]<<"]["<<this->tabY[i]<<"] = "<<this->tabVal[i]<<endl;
+				if((this->tabX[i] == "x") && (this->tabY[i] == "y")) // ligne i vide, les suivantes sont vide
+				{
+					this->tabX[i] = X;
+					this->tabY[i] = Y;
+					this->tabVal[i] = valeur;
+					break;
+				}
+				i++;
+			}
+		}
+		else
+		{
+			int index = -1;
+			while(i <= (this->tailleFichier - 2))
+			{
+				if((this->tabX[i] == X) && (this->tabY[i] == Y)) // si les deux cases correspondent
+				{
+					this->tabVal[i] = valeur;
+				}
+				i++;
+			}
+		}
+	}
 }
 // Getteurs
-Matrice Matrice::getMatrice()
-{
-	
-}
-int Matrice::getMax()
-{
-	if(this->max > 0)
-		return this->max;
-	else
-		return 0;
-}
-int Matrice::getTaille()
-{
-	return this->tailleFichier;
-}
 int Matrice::getValeur(int x, int y)
 {
 	int val = -1;
 	int i = 0;
 	string X, Y;
 	// conversion int -> string
-	ostringstream oss;
-	oss << x;
-	X = oss.str();
-	oss.str(""); // effacement du flux pour traiter y
-	oss << y;
-	Y = oss.str();
+	X = this->intToString(x);
+	Y = this->intToString(y);
 	while(i <= (this->tailleFichier - 2))
 	{
 		if((this->tabX[i] == X) && (this->tabY[i] == Y)) // si les deux cases correspondent
 			val = this->tabVal[i]; // récupération de la valeur
 		i++;
 	}
+	return val;
+}
+string Matrice::getX(int i)
+{
+	string x = this->tabX[i];
+	return x;
+}
+string Matrice::getY(int i)
+{
+	string y = this->tabY[i];
+	return y;
+}
+int Matrice::getVal(int i)
+{
+	int val = this->tabVal[i];
 	return val;
 }
 // Destructeur
