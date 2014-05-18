@@ -17,23 +17,12 @@ int main(void)
 	cout<<"---- Projet GLOG Matrice ----"<<endl;
 	cout<<"Programme de test de la librairie"<<endl;
 	//Matrice m1("matrix.txt"); // 3x3
-	//Matrice m2("matrice.txt"); // 7x7
+	Matrice m2("matrice.txt"); // 7x7
 	//Matrice m3("matrice3.txt"); // 3x3
+	//m1.afficher();
+	//m1.factorisation();
 	//m2.afficher();
-	//m2.transposee();
-	int max = 7;
-	Matrice t(max, max);
-	int val = 0;
-	for(int i = 0; i < max; i++)
-	{
-		for(int j = 0; j < max; j++)
-		{
-			cout<<"["<<i<<"]["<<j<<"] : ";
-			cin>>val;
-			t.setValeur(i, j, val);
-		}
-	}
-	t.afficher();
+	m2.transposee();
 	return 0;
 }
 #endif

@@ -47,25 +47,35 @@ Matrice::Matrice(string nomFichier) // construit une matrice à partir d'un fich
 		string taille;
 		fichier >> taille; // extraction de la première ligne
 		// traitement de la première ligne (n et m)
+		int tailleChaine = taille.length();
+		int posEgal;
+		for(int i = 0; i < tailleChaine; i++)
+		{
+			if(taille[i] == '=')
+			{
+				posEgal = i; // sauvegarde de la position du signe =
+				break;
+			}
+		}
 		// lecture de n
-		c1 = this->charToInt(taille[5]);
-		if(taille[6] != '-') // si la lettre 6 n'est pas un séparateur
+		string N = "";
+		int j = posEgal + 1;
+		while(taille[j] != '-')
 		{
-			c2 = this->charToInt(taille[6]);
-			c1 *= 10; // concatène c1 et c2
-			c1 += c2;
-			separateur = 7; // séparateur sur le caractère 7
+			N += taille[j]; // concatene les chiffres
+			j++;
 		}
-		this->n = c1; // stockage de la valeur définitive c1 de n
+		int posTiret = j;
+		this->n = this->stringToInt(N);
 		// lecture de m
-		c1 = this->charToInt(taille[separateur + 1]); // réassignation de c1 et de c2
-		if(taille[separateur + 2] != '\0') // si la case existe, c'est qu'il y a un chiffre
+		string M = "";
+		int k = posTiret + 1;
+		while(taille[k] != '\0')
 		{
-			c2 = this->charToInt(taille[separateur + 2]);
-			c1 *= 10; // concatène c1 et c2
-			c1 += c2;
+			M += taille[k]; // concatene les chiffres
+			k++;
 		}
-		this->m = c1;  // stockage de la valeur définitive c1 de m
+		this->m = this->stringToInt(M);
 		this->max = this->n * this->m; // calcul du nombre de valeurs maximale
 		// comptage du nombre de ligne
 		string ligne;
@@ -77,10 +87,10 @@ Matrice::Matrice(string nomFichier) // construit une matrice à partir d'un fich
 			exit(4); // arret du programme
 		}
 		// Initialisation des trois tableaux
-		tabX = new string[tailleFichier - 1]; // tailleFichier - 1 car on commence à la 2eme ligne
-		tabY = new string[tailleFichier - 1];
-		tabVal = new int[tailleFichier - 1];
-		for(int i = 0; i < (tailleFichier - 1); i++)
+		tabX = new string[this->tailleFichier - 1]; // tailleFichier - 1 car on commence à la 2eme ligne
+		tabY = new string[this->tailleFichier - 1];
+		tabVal = new int[this->tailleFichier - 1];
+		for(int i = 0; i < (this->tailleFichier - 1); i++)
 		{
 			this->tabX[i] = "x";
 			this->tabY[i] = "y";
@@ -189,21 +199,30 @@ void Matrice::division(Matrice &matrice)
 	else
 		cout<<"La matrice ne peux pas etre divisée car différence de taille"<<endl;
 }
-void Matrice::division(int constante)
+void Matrice::division(int constante) // fini
 {
 	cout<<"Division de la matrice par une constante de valeur "<<constante<<endl;
+	for(int i = 0; i < (this->tailleFichier - 1); i++)
+	{
+		this->tabVal[i] /= constante;
+	}
 }
 void Matrice::factorisation()
 {
-	if(this->n == this->m) // matrice carré
+	if(this->estCarre()) // matrice carré
 	{
 		cout<<"factorisation autorisé"<<endl;
-		this->afficher();
 	}
 	else
 		cout<<"Cas non traité pour le moment"<<endl;
 }
-void Matrice::transposee()
+void Matrice::inverse()
+{
+	if(this->estCarre()) // matrice carré
+	{
+	}
+}
+void Matrice::transposee() // fini
 {
 	if(this->estCarre()) // matrice carré
 	{
@@ -227,12 +246,12 @@ void Matrice::transposee()
 			this->tabY[i] = t.getY(i);
 			this->tabVal[i] = t.getVal(i);
 		}
-		this->afficher();
+		cout<<"La matrice a été transposée"<<endl;
 	}
 	else
 		cout<<"Cas non traité pour le moment"<<endl;
 }
-void Matrice::afficher() // terminé
+void Matrice::afficher() // fini
 {
 	int val;
 	cout<<"Voici la matrice"<<endl;
@@ -296,7 +315,7 @@ bool Matrice::creuse() // détermine si la matrice est creuse ou non
 	if(pc < 5)
 	{
 		// calcul du nombre de case occupé par colonne (il faut au moins 1 case / colonne)
-		for(int i = 0; i < this->n; i++)
+		for(int i = 0; i < (this->tailleFichier - 1); i++)
 		{
 			if(this->tabY[i] == "y")
 			{
@@ -312,11 +331,6 @@ bool Matrice::estCarre()
 		return true;
 	else
 		return false;
-}
-void Matrice::nettoyage(Matrice &matrice)
-{
-	// retrait des 0 et des -1
-	// triage des nombres en ligne et colonnes
 }
 // Setteurs
 void Matrice::setValeur(int x, int y, int valeur) // terminé
