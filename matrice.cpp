@@ -100,16 +100,45 @@ Matrice::Matrice(string nomFichier) // construit une matrice à partir d'un fich
 		fichier.seekg(0, ios::beg);
 		// Lecture des lignes et stockage dans les trois tableaux
 		int i = 0;
+		j = 0;
+		int pos = 0; // position dans les tableaux
+		string X = "", Y = "", tmp = ""; // tmp stocke la valeur de la case au format string, avant conversion en int
+		int valeur;
 		while(getline(fichier, ligne))
 		{
 			if(ligne.find("size=", 0) != 0) // la 1e ligne (contenant size=) n'est pas lu
 			{
-				char l = ligne[0];
-				this->tabX[i] = l;
-				char c = ligne[2];
-				this->tabY[i] = c;
-				this->tabVal[i] = this->charToInt(ligne[4]);
-				i++;
+				X = ""; // réinitialisation des index i et j et des variables X, Y et tmp
+				Y = "";
+				tmp = "";
+				i = 0;
+				j = 0;
+				// lecture de X
+				while(ligne[i] != ' ')
+				{
+					X += ligne[i];
+					i++;
+				}
+				// lecture de Y
+				int j = i + 1; // déplacement de l'index
+				while(ligne[j] != ' ')
+				{
+					Y += ligne[j];
+					j++;
+				}
+				// lecture de la valeur
+				int k = j + 1; // déplacement de l'index
+				while(ligne[k] != '\0')
+				{
+					tmp += ligne[k];
+					k++;
+				}
+				valeur = this->stringToInt(tmp);
+				// stockage
+				this->tabX[pos] = X;
+				this->tabY[pos] = Y;
+				this->tabVal[pos] = valeur;
+				pos++;
 			}
 			
 		}
@@ -119,10 +148,11 @@ Matrice::Matrice(string nomFichier) // construit une matrice à partir d'un fich
 	cout<<"Matrice créée :"<<endl;
 	cout<<" - n : "<<this->n<<endl;
 	cout<<" - m : "<<this->m<<endl;
+	cout<<"Type : ";
 	if(this->creuse())
-		cout<<"Matrice creuse"<<endl;
+		cout<<"creuse"<<endl;
 	else
-		cout<<"Matrice pleine"<<endl;
+		cout<<"pleine"<<endl;
 }
 Matrice::Matrice(Matrice &matrice) // constructeur de recopie
 {
@@ -277,6 +307,27 @@ void Matrice::afficher() // fini
 int Matrice::determinant()
 {
 	return 0;
+}
+void Matrice::sauvegarde(string nom)
+{
+	string X, Y;
+	int valeur;
+	ofstream fichier(nom.c_str(), ios::out | ios::trunc); // on efface le fichier et on le recrée
+	if((fichier != NULL) && (fichier)) // le fichier existe et a bien été ouvert
+	{
+		fichier<<"size="<<this->n<<"-"<<this->m<<endl;
+		for(int i = 0; i < (this->tailleFichier - 1); i++)
+		{
+			X = this->tabX[i];
+			Y = this->tabY[i];
+			valeur = this->tabVal[i];
+			fichier<<X<<"_"<<Y<<"_"<<valeur<<endl;
+		}
+		fichier.close(); // fermeture du fichier
+		cout<<"Matrice sauvegardée dans le fichier "<<nom<<endl;
+	}
+	else
+		cout<<"Erreur dans l'ouverture du fichier, la matrice n'a pas été sauvegardée"<<endl;
 }
 // Méthodes privées
 int Matrice::charToInt(char caractere) // conversion char -> int

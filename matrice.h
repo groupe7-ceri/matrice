@@ -12,7 +12,8 @@ Déclaration des méthodes de la classe Matrice */
 #include <iostream>
 #include <string>
 #include <cstring>
-#include <fstream>
+#include <fstream> // permet de gérer les fichiers
+#include <vector>
 #include <stdlib.h> // fonction atoi()
 #include <sstream> // conversion int -> string
 
@@ -31,7 +32,15 @@ private:
 	std::string intToString(int); // conversion int vers string
 	bool creuse(); // détermine si c'est une matrice creuse (true) ou non (false)
 	bool estCarre(); // indique si la matrice est carré (true) ou non (false)
-	void nettoyage(Matrice &); // nettoie la matrice passé en référence (ou alors elle même ?)
+	// Setteurs
+	void setValeur(int, int, int);
+	// Getteurs
+	int getValeur(int, int); // retourne la valeur des coordonnées en paramètres (le passer en privé ?)
+	std::string getX(int); // retourne la valeur X du tableau tabX
+	std::string getY(int); // retourne la valeur Y du tableau tabY
+	int getVal(int); // retourne la valeur Val du tableau tabVal
+	int getTaille(bool); // retourne la taille de la matrice (attribut tailleFichier) (false) ou réel (true)
+	int getMax(); // retourne le nombre maximal de cases (attribut max)
 public:
 	Matrice(int, int); // construit une matrice neutre de n x m
 	Matrice(std::string);
@@ -45,16 +54,9 @@ public:
 	void division(int); // divise la matrice par une constante (surcharge)
 	void factorisation();
 	void transposee(); // effectue la transposée de la matrice
+	void inverse(); // effectue l'inverse de la matrice
 	void afficher();
 	int determinant(); // calcul le déterminant de la matrice
-	// Setteurs
-	void setValeur(int, int, int);
-	// Getteurs
-	int getValeur(int, int); // retourne la valeur des coordonnées en paramètres (le passer en privé ?)
-	std::string getX(int); // retourne la valeur X du tableau tabX
-	std::string getY(int); // retourne la valeur Y du tableau tabY
-	int getVal(int); // retourne la valeur Val du tableau tabVal
-	int getTaille(bool); // retourne la taille de la matrice (attribut tailleFichier) (false) ou réel (true)
-	int getMax(); // retourne le nombre maximal de cases (attribut max)
+	void sauvegarde(std::string); // permet de sauvegarder une matrice dans un fichier
 };
 #endif
