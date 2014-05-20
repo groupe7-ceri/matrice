@@ -1,18 +1,22 @@
 Fichier résumant l'avancement du projet
-
-Méthodes :
+MAJ : 20 mai 2014
+Méthodes publiques :
 
 addition			En cours
 soustraction			En cours
 multiplication(matrice)		En cours
-multiplication(constante)	Terminé
+multiplication(constante)	Fait
 division(matrice)		A faire
-division(constante)		A faire
+division(constante)		Fait
 factorisation			A faire
-transposee			En cours
+transposee			Fait
 affichage			Fait
 determinant			A faire
+sauvegarde			Fait
 
 Notes :
 Revoir algo méthode creuse(), partie vérification colonnes
 Méthode setValeur(x, y, valeur) vérifié
+
+La matrice peut aller jusqu'a 10000, donc modifier l'algo de lecture de n et m pour prendre en compte ces valeurs !!
+	=> FAIT
