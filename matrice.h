@@ -1,6 +1,6 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
-Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
+Auteur : Jérémie Décome (CdP) - Dylan Hernandez - Alexandre Tarbis
 MAJ : 7 mai 2014
 Fichier matrice.h
 Déclaration des méthodes de la classe Matrice */
@@ -46,17 +46,17 @@ public:
 	Matrice(std::string);
 	Matrice(Matrice &); // constructeur de recopie
 	~Matrice();
-	void addition(Matrice &);
-	void soustraction(Matrice &);
-	void multiplication(Matrice &);
+	void addition(Matrice &); // addition via une autre matrice
+	void soustraction(Matrice &); // soustraction via une autre matrice
+	void multiplication(Matrice &); // multiplication via une autre matrice
 	void multiplication(int); // multiplie la matrice par une constante (surcharge)
-	void division(Matrice &);
+	void division(Matrice &); // division via une autre matrice
 	void division(int); // divise la matrice par une constante (surcharge)
 	void factorisation();
 	void transposee(); // effectue la transposée de la matrice
 	void inverse(); // effectue l'inverse de la matrice
 	void afficher();
-	int determinant(); // calcul le déterminant de la matrice
+	int determinant(bool); // calcul le déterminant de la matrice
 	void sauvegarde(std::string); // permet de sauvegarder une matrice dans un fichier
 };
 #endif

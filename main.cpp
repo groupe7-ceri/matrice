@@ -1,6 +1,6 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
-Auteur : Jérémie Décome - Dylan Hernandez - Alexandre Tarbis
+Auteur : Jérémie Décome (CdP) - Dylan Hernandez - Alexandre Tarbis
 MAJ : 13 mai 2014
 Fichier main.cpp
 Fichier principal - Pour essai de la librairie durant son développement */
@@ -15,14 +15,13 @@ using namespace std;
 int main(void)
 {
 	cout<<"---- Projet GLOG Matrice ----"<<endl;
-	cout<<"Programme de test de la librairie"<<endl;
-	//Matrice m1("matrix.txt"); // 3x3
-	Matrice m2("matrice.txt"); // 7x7
-	//Matrice m3("matrice3.txt"); // 3x3
-	//m1.afficher();
-	//m1.factorisation();
-	//m2.afficher();
-	m2.transposee();
+	cout<<"Programme de test de la librairie Matrice"<<endl;
+	Matrice m1("m4x4.txt"); // création d'une matrice 4 x 4
+	Matrice saveM1(m1); // sauvegarde de la matrice m1
+	m1.afficher();
+	cout<<"Essai de la méthode de calcul du déterminant de la matrice m1"<<endl;
+	int det = m1.determinant(false); // false pour indiquer à la méthode que ce n'est pas un appel récursif
+	cout<<"Le déterminant est de : "<<det<<endl;
 	return 0;
 }
 #endif
