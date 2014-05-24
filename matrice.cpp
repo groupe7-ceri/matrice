@@ -323,27 +323,31 @@ void Matrice::transposee() // fini
 void Matrice::afficher() // fini
 {
 	int val;
-	cout<<"Voici la matrice"<<endl<<"   ";
-	for(int j = 0; j < this->n; j++) // affichage du numéro des colonnes (même index j pour s'en rapeler)
-		cout<<(j + 1)<<" ";
-	cout<<endl;
-	for(int i = 0; i < this->m; i++)
+	if((this->n <= 20) && (this->m <= 20)) // limitation de l'affichage pour les grandes et très grandes matrices)
 	{
-		int l = i + 1; // permet d'afficher dynamiquement le nombre de lignes
-		if(l < 10)
-			cout<<l<<" |";
-		else
-			cout<<l<<"|";
-		for(int j = 0; j < this->n; j++)
-		{
-			val = this->getValeur(i, j); // récupération de la case actuelle
-			if(val != 0) // si ce n'est pas une case vide
-				cout<<val<<" "; // alors on affiche la valeur
-			else
-				cout<<"  ";
-		}
+		cout<<"Voici la matrice"<<endl<<"   ";
+		for(int j = 0; j < this->n; j++) // affichage du numéro des colonnes (même index j pour s'en rapeler)
+			cout<<(j + 1)<<" ";
 		cout<<endl;
+		for(int i = 0; i < this->m; i++)
+		{
+			int l = i + 1; // permet d'afficher dynamiquement le nombre de lignes
+			if(l < 10)
+				cout<<l<<" |";
+			else
+				cout<<l<<"|";
+			for(int j = 0; j < this->n; j++)
+			{
+				val = this->getValeur(i, j); // récupération de la case actuelle
+				if(val != 0) // si ce n'est pas une case vide
+					cout<<val<<" "; // alors on affiche la valeur
+				else
+					cout<<"  ";
+			}
+			cout<<endl;
+		}
 	}
+	
 }
 /* Méthode publique calcul du déterminant de la matrice
  * Permet de calculer le déterminant de la matrice actuelle
@@ -380,6 +384,12 @@ int Matrice::determinant(bool recursif) // méthode en cours de développement
 		if((this->n == 2) && (this->m == 2)) // si la matrice est déjà 2 x 2
 		{
 			// calcul déterminant
+			int a = this->getValeur(0, 0);
+			int b = this->getValeur(0, 1);
+			int c = this->getValeur(1, 0);
+			int d = this->getValeur(1, 1);
+			det = (a * d) - (b * c);
+			return det;
 		}
 		else
 		{ 
@@ -390,8 +400,6 @@ int Matrice::determinant(bool recursif) // méthode en cours de développement
 				cout<<"["<<this->tabX[i]<<"]["<<this->tabY[i]<<"] : "<<this->tabVal[i]<<endl; // temporaire
 				i++;
 			}
-			int *premiereLigne = new int[i]; // sauvegarde les valeurs de la première ligne
-			 // lecture des colonnes
 			int valeurDet = this->determinant(true);
 		}
 	}
