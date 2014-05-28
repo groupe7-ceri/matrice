@@ -1,7 +1,7 @@
 /* Génie logiciel - Projet Matrice
 L2 INFORMATIQUE - Groupe TP2
 Auteur : Jérémie Décome (CdP) - Dylan Hernandez - Alexandre Tarbis
-MAJ : 20 mai 2014
+MAJ : 27 mai 2014
 Fichier matrice.cpp
 Implémentation des méthodes de la classe Matrice */
 
@@ -203,6 +203,16 @@ void Matrice::addition(Matrice &matrice) // faite par Alex et Dylan - développe
 	else
 		cout<<"La matrice ne peux pas etre additionnée car différence de taille"<<endl;
 }
+/* Méthode publique addition par une constante
+ * Paramètre : constante (entier) avec laquelle la matrice actuelle est additionnée. 
+ * Résultat : matrice actuelle = matrice actuelle + constante
+ * */
+void Matrice::addition(int constante)
+{
+	cout<<"Addition de la matrice par la constante "<<constante<<endl;
+	for(int i = 0; i < (this->tailleFichier - 1); i++)
+		this->tabVal[i] += constante;
+}
 /* Méthode publique soustraction de deux matrices
  * Paramètre : référence de la matrice avec laquelle la matrice actuelle est soustraite. 
  * Résultat : matrice actuelle = matrice actuelle - matrice passée en référence
@@ -297,6 +307,7 @@ void Matrice::transposee() // fini
 {
 	if(this->estCarre()) // matrice carré
 	{
+		cout<<"Transposée en cours ..."<<endl;
 		Matrice t(this->n, this->m); // création d'une matrice vide temporaire de taille n x m
 		for(int i = 0; i < this->m; i++)
 		{
@@ -306,6 +317,7 @@ void Matrice::transposee() // fini
 				t.setValeur(j, i, val); // stocke la valeur de la case [j][i] dans la matrice temporaire
 			}
 		}
+		cout<<"Recopie"<<endl;
 		// recopie dans la matrice d'origine
 		for(int i = 0; i < t.getTaille(true); i++) // getTaille(true) renvoi le nombre réel de cases occupées
 		{
@@ -347,7 +359,8 @@ void Matrice::afficher() // fini
 			cout<<endl;
 		}
 	}
-	
+	else
+		cout<<"La matrice ne peux pas être afficher car elle fait "<<this->n<<" par "<<this->m<<endl;
 }
 /* Méthode publique calcul du déterminant de la matrice
  * Permet de calculer le déterminant de la matrice actuelle

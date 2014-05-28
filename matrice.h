@@ -47,6 +47,7 @@ public:
 	Matrice(Matrice &); // constructeur de recopie
 	~Matrice();
 	void addition(Matrice &); // addition via une autre matrice
+	void addition(int); // addition avec une constante
 	void soustraction(Matrice &); // soustraction via une autre matrice
 	void multiplication(Matrice &); // multiplication via une autre matrice
 	void multiplication(int); // multiplie la matrice par une constante (surcharge)
